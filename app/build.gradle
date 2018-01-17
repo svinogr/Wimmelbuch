@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "info.upump.wimmelbuch"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -29,5 +29,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:cardview-v7:+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
 }

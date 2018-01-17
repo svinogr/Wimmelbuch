@@ -6,9 +6,10 @@ package info.upump.wimmelbuch.model;
 
 public class Page {
     private long id;
-    private long parentBookId;
+    private long BookId;
     private int numberPage;
     private String imgTitle;
+    private String imgPage;
 
     public long getId() {
         return id;
@@ -34,11 +35,19 @@ public class Page {
         this.imgTitle = imgTitle;
     }
 
-    public long getParentBookId() {
-        return parentBookId;
+    public long getBookId() {
+        return BookId;
     }
 
-    public void setParentBookId(long parentBookId) {
-        this.parentBookId = parentBookId;
+    public void setBookId(long bookId) {
+        this.BookId = bookId;
+    }
+
+    public String getImgPage() {
+        return imgPage;
+    }
+
+    public void setImgPage(String imgPage) {
+        this.imgPage = imgPage;
     }
 }

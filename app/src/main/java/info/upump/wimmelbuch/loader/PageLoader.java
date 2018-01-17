@@ -27,7 +27,9 @@ public class PageLoader extends AsyncTaskLoader<List<Page>> {
         List<Page> list = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             Page page = new Page();
+            page.setId(i);
             page.setNumberPage(i);
+            page.setImgPage("http://img.wimmelbuch.su/144-thickbox_default/mein-superdickes-wimmelbuch.jpg");
             list.add(page);
         }
         return list;

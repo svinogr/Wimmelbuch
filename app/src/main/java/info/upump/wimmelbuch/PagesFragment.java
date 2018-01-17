@@ -24,10 +24,10 @@ import info.upump.wimmelbuch.model.Book;
 import info.upump.wimmelbuch.model.Page;
 
 public class PagesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Page>> {
-    private static final String ID_BOOK = "Id Book";
-    private static final String TITLE_BOOK = "Title Book";
-    private static final String RATE_BOOK = "Rate_book";
-    private static final String IMG_TITLE_BOOK = "Img_title_book";
+    private static final String ID_BOOK = "id book";
+    private static final String TITLE_BOOK = "title book";
+    private static final String RATE_BOOK = "rate book";
+    private static final String IMG_TITLE_BOOK = "img title book";
 
     private Book book;
     private List<Page> pageList = new ArrayList<>();
@@ -52,6 +52,7 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        System.out.println("onCreate");
         super.onCreate(savedInstanceState);
         book = new Book();
         if (getArguments() != null) {
@@ -66,7 +67,9 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("onCreateViewa");
         // Inflate the layout for this fragment
+        getActivity().setTitle("Название книги "+book.getTitle());
         View inflate = inflater.inflate(R.layout.fragment_pages, container, false);
       /*  DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -75,8 +78,6 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
         int q = Math.round(screenWidth/150);*/
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
        // LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
-
-
         pageAdapter = new PageAdapter(pageList);
 
         recyclerView = inflate.findViewById(R.id.fragment_pages_recycle);

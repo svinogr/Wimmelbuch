@@ -42,6 +42,7 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("Книги");
         View inflate = inflater.inflate(R.layout.fragment_books, container, false);
         recyclerView = inflate.findViewById(R.id.fragment_books_recycler);
 
