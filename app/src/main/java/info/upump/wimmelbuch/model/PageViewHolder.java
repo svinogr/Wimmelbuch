@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import info.upump.wimmelbuch.Controller;
 import info.upump.wimmelbuch.R;
 import info.upump.wimmelbuch.ViewPageFragment;
@@ -35,6 +37,11 @@ public class PageViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Page page) {
         this.page = page;
+        Picasso.with(itemView.getContext())
+                .load(page.getImgTitle())
+                .fit()
+                .placeholder(R.drawable.ic_bookmark_black_24dp)
+                .into(imageView);
         //imageView.setImageBitmap(page.getImgTitle());
         number.setText(String.valueOf(page.getNumberPage()));
     }

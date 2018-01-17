@@ -69,7 +69,7 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
                              Bundle savedInstanceState) {
         System.out.println("onCreateViewa");
         // Inflate the layout for this fragment
-        getActivity().setTitle("Название книги "+book.getTitle());
+        getActivity().setTitle(book.getTitle());
         View inflate = inflater.inflate(R.layout.fragment_pages, container, false);
       /*  DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);

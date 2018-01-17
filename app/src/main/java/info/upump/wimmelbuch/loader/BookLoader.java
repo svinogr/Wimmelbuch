@@ -24,7 +24,8 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
         for(int i = 0; i < 10; i++){
             Book book = new Book();
             book.setId(i);
-            book.setTitle("book " + i);
+            book.setTitle("Mein schonstes Wimmelbuch Weihnachten");
+            book.setImgTitle("http://img.wimmelbuch.su/2287-home_default/mein-grobes-wimmelbuch-fahrzeuge.jpg");
             book.setRate(i+100);
             books.add(book);
         }

@@ -29,6 +29,7 @@ public class PageLoader extends AsyncTaskLoader<List<Page>> {
             Page page = new Page();
             page.setId(i);
             page.setNumberPage(i);
+            page.setImgTitle("http://img.wimmelbuch.su/2367-home_default/wohin-saust-die-kleine-weihnachtsmaus.jpg");
             page.setImgPage("http://img.wimmelbuch.su/144-thickbox_default/mein-superdickes-wimmelbuch.jpg");
             list.add(page);
         }
