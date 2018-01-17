@@ -30,9 +30,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(BookViewHolder holder, int position) {
+    public void onBindViewHolder(final BookViewHolder holder, int position) {
         holder.binder(bookList.get(position));
-
     }
 
     @Override

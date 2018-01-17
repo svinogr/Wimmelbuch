@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <C
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+
+    android:elevation="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/book_item_card_item_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:background="@color/colorPrimary"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/book_item_card_item_img_title"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_bookmark_black_24dp"
+
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            tool:layout_constraintBottom_toBottomOf="parent"
+            tool:layout_constraintLeft_toLeftOf="parent"
+            tool:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/book_item_card_item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp"
+            tool:layout_constraintLeft_toRightOf="@+id/book_item_card_item_img_title"
+            tool:layout_constraintRight_toRightOf="parent"
+            tool:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/book_item_card_item_img_heart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/ic_bookmark_black_24dp"
+            tool:layout_constraintBottom_toBottomOf="parent"
+            tool:layout_constraintRight_toRightOf="parent"
+            tool:layout_constraintTop_toBottomOf="@+id/book_item_card_item_title"
+            tool:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/book_item_card_item_rate"
+            android:textColor="#FFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            tool:layout_constraintBottom_toBottomOf="@+id/book_item_card_item_img_heart"
+            tool:layout_constraintLeft_toLeftOf="@+id/book_item_card_item_img_heart"
+            tool:layout_constraintRight_toRightOf="@+id/book_item_card_item_img_heart"
+            tool:layout_constraintTop_toTopOf="@+id/book_item_card_item_img_heart" />
 
 
+    </android.support.constraint.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
 
-
-    </C>
+</android.support.v7.widget.CardView>
 
 

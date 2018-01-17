@@ -1,52 +1,51 @@
 package info.upump.wimmelbuch;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PagesFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PagesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PagesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import info.upump.wimmelbuch.adapter.PageAdapter;
+import info.upump.wimmelbuch.loader.PageLoader;
+import info.upump.wimmelbuch.model.Book;
+import info.upump.wimmelbuch.model.Page;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class PagesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Page>> {
+    private static final String ID_BOOK = "Id Book";
+    private static final String TITLE_BOOK = "Title Book";
+    private static final String RATE_BOOK = "Rate_book";
+    private static final String IMG_TITLE_BOOK = "Img_title_book";
 
-    private OnFragmentInteractionListener mListener;
+    private Book book;
+    private List<Page> pageList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private PageAdapter pageAdapter;
+
 
     public PagesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PagesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PagesFragment newInstance(String param1, String param2) {
+    public static PagesFragment newInstance(Book book) {
         PagesFragment fragment = new PagesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putLong(ID_BOOK, book.getId());
+        args.putString(TITLE_BOOK, book.getTitle());
+        args.putInt(RATE_BOOK, book.getRate());
+        args.putString(IMG_TITLE_BOOK, book.getImgTitle());
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,55 +53,66 @@ public class PagesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        book = new Book();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            book.setId(getArguments().getLong(ID_BOOK));
+            book.setTitle(getArguments().getString(TITLE_BOOK));
+            book.setRate(getArguments().getInt(RATE_BOOK));
+            book.setImgTitle(getArguments().getString(IMG_TITLE_BOOK));
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pages, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_pages, container, false);
+      /*  DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int screenWidth = displaymetrics.widthPixels;
+        System.out.println(screenWidth);
+        int q = Math.round(screenWidth/150);*/
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+       // LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
+
+
+        pageAdapter = new PageAdapter(pageList);
+
+        recyclerView = inflate.findViewById(R.id.fragment_pages_recycle);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(pageAdapter);
+        return inflate;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public Loader<List<Page>> onCreateLoader(int id, Bundle args) {
+        PageLoader pageLoader = null;
+        try {
+            long aLong = getArguments().getLong(ID_BOOK);
+            pageLoader = new PageLoader(getContext(), aLong);
+        } catch (NullPointerException e) {
+            System.out.println("где книга БЛЕАТЬ");
         }
+
+        return pageLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Page>> loader, List<Page> data) {
+        pageList.clear();
+        pageList.addAll(data);
+        pageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Page>> loader) {
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        getLoaderManager().initLoader(0,null,this);
     }
 }

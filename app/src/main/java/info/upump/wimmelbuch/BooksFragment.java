@@ -1,5 +1,6 @@
 package info.upump.wimmelbuch;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -27,7 +28,7 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     public BooksFragment() {
     }
 
-    public static BooksFragment newInstance(String param1, String param2) {
+    public static BooksFragment newInstance() {
         BooksFragment fragment = new BooksFragment();
         return fragment;
     }
@@ -54,20 +55,27 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
 
 
     @Override
-    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {\
+    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
         BookLoader bookLoader = new BookLoader(getContext());
         return bookLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
+        System.out.println(data.size());
         bookList.clear();
         bookList.addAll(data);
-
+        bookAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        getLoaderManager().initLoader(0, null, this);
     }
 }

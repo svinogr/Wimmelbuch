@@ -6,31 +6,32 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.upump.wimmelbuch.model.Book;
+import info.upump.wimmelbuch.model.Page;
 
 /**
  * Created by explo on 17.01.2018.
  */
 
-public class BookLoader extends AsyncTaskLoader<List<Book>> {
+public class PageLoader extends AsyncTaskLoader<List<Page>> {
     private Context context;
-    public BookLoader(Context context) {
+    private long idBook;
+
+    public PageLoader(Context context, long idBook) {
         super(context);
+        this.context = context;
+        this.idBook = idBook;
     }
 
     @Override
-    public List<Book> loadInBackground() {
-        List<Book> books = new ArrayList<>(10);
-        for(int i = 0; i < 10; i++){
-            Book book = new Book();
-            book.setId(i);
-            book.setTitle("book " + i);
-            book.setRate(i+100);
-            books.add(book);
+    public List<Page> loadInBackground() {
+        List<Page> list = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            Page page = new Page();
+            page.setNumberPage(i);
+            list.add(page);
         }
-        return books;
+        return list;
     }
-
 
     @Override
     protected void onStartLoading() {
@@ -45,7 +46,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
     }
 
     @Override
-    public void deliverResult(List<Book> data) {
+    public void deliverResult(List<Page> data) {
         super.deliverResult(data);
     }
 
