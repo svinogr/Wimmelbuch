@@ -50,4 +50,15 @@ public class Page {
     public void setImgPage(String imgPage) {
         this.imgPage = imgPage;
     }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "id=" + id +
+                ", BookId=" + BookId +
+                ", numberPage=" + numberPage +
+                ", imgTitle='" + imgTitle + '\'' +
+                ", imgPage='" + imgPage + '\'' +
+                '}';
+    }
 }

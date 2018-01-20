@@ -10,6 +10,9 @@ public class Book {
     private int rate;
     private String imgTitle;
 
+    public Book() {
+    }
+
     public long getId() {
         return id;
     }
@@ -40,5 +43,15 @@ public class Book {
 
     public void setImgTitle(String imgTitle) {
         this.imgTitle = imgTitle;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", rate=" + rate +
+                ", imgTitle='" + imgTitle + '\'' +
+                '}';
     }
 }

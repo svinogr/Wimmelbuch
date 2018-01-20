@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.net.URL;
+
 import info.upump.wimmelbuch.model.Page;
 
 public class ViewPageFragment extends Fragment implements View.OnTouchListener{
@@ -24,6 +27,7 @@ public class ViewPageFragment extends Fragment implements View.OnTouchListener{
     public static final  String NUMBER_PAGE = "number page";
     public static final  String IMG_TITLE_PAGE = "img title";
     public static final  String IMG_PAGE = "img page";
+    private static final String START_URL = "https://img.wimmelbuch.su/img/p/";
 
     private Matrix matrix = new Matrix();
     private Matrix savedMatrix = new Matrix();
@@ -83,13 +87,25 @@ public class ViewPageFragment extends Fragment implements View.OnTouchListener{
         getActivity().setTitle("Страница "+page.getNumberPage());
         imageViewPage = inflate.findViewById(R.id.view_page_fragment_image_view);
         imageViewPage.setOnTouchListener(this);
+       // int identif = getContext().getApplicationContext().getResources().getIdentifier(page.getImgTitle(),"drawable", getContext().getPackageName());
 
         Picasso.with(getContext())
-                .load(page.getImgPage())
-                .placeholder(R.drawable.ic_bookmark_black_24dp)
+                .load(Uri.parse(getURL()))
+          //      .placeholder(identif)
                 .fit()
                 .into(imageViewPage);
         return inflate;
+    }
+
+    private String getURL(){
+        String split[] = page.getImgPage().split("-");
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i<split[0].length();i++){
+            stringBuilder.append(split[0].substring(i,i+1));
+            stringBuilder.append("/");
+        }
+        String pageURL =START_URL+stringBuilder.toString()+page.getImgPage();
+        return pageURL;
     }
 
     @Override

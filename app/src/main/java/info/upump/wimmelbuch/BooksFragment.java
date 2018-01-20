@@ -63,7 +63,6 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
-        System.out.println(data.size());
         bookList.clear();
         bookList.addAll(data);
         bookAdapter.notifyDataSetChanged();

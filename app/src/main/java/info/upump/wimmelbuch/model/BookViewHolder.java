@@ -11,6 +11,8 @@ import info.upump.wimmelbuch.Controller;
 import info.upump.wimmelbuch.PagesFragment;
 import info.upump.wimmelbuch.R;
 
+import static android.R.attr.path;
+
 /**
  * Created by explo on 17.01.2018.
  */
@@ -38,11 +40,19 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 
     public void binder(Book book) {
         this.book = book;
-        title.setText(book.getTitle());
+        title.setText(book.getTitle().substring(0,1).toUpperCase()+book.getTitle().substring(1));
+        System.out.println(book.getImgTitle());
+        System.out.println(itemView.getContext().getApplicationContext().getPackageName());
+        System.out.println("con "+itemView.getContext().getApplicationContext().getResources().getIdentifier("book_142","drawable",itemView.getContext().getApplicationContext().getPackageName()));
+        int identifier = itemView.getContext().getApplicationContext().getResources().getIdentifier(book.getImgTitle(), "drawable",itemView.getContext().getApplicationContext().getPackageName());
+        System.out.println("ident "+ identifier);
+        if(identifier == 0){identifier = 2130837589;}
         Picasso.with(itemView.getContext())
-                .load(book.getImgTitle())
+                .load(identifier)
+                .error(R.drawable.ic_bookmark_black_24dp)
                 .fit()
-                .placeholder(R.drawable.ic_bookmark_black_24dp)
+
+            //    .placeholder(R.drawable.ic_bookmark_black_24dp)
                 .into(imgTitle);
 
        // imgTitle.setImageBitmap(new );

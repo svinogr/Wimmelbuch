@@ -6,7 +6,10 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.upump.wimmelbuch.data.IData;
+import info.upump.wimmelbuch.data.db.DataBaseBookDao;
 import info.upump.wimmelbuch.model.Book;
+
 
 /**
  * Created by explo on 17.01.2018.
@@ -14,22 +17,17 @@ import info.upump.wimmelbuch.model.Book;
 
 public class BookLoader extends AsyncTaskLoader<List<Book>> {
     private Context context;
+
     public BookLoader(Context context) {
         super(context);
+        this.context = context;
+
     }
 
     @Override
     public List<Book> loadInBackground() {
-        List<Book> books = new ArrayList<>(10);
-        for(int i = 0; i < 10; i++){
-            Book book = new Book();
-            book.setId(i);
-            book.setTitle("Mein schonstes Wimmelbuch Weihnachten");
-            book.setImgTitle("http://img.wimmelbuch.su/2287-home_default/mein-grobes-wimmelbuch-fahrzeuge.jpg");
-            book.setRate(i+100);
-            books.add(book);
-        }
-        return books;
+        IData iData = new DataBaseBookDao(context);
+        return iData.getList();
     }
 
 
@@ -54,4 +52,6 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
     protected void onForceLoad() {
         super.onForceLoad();
     }
+
+
 }

@@ -7,7 +7,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/wimmelbuch_logo_noncolor"/>
     </item>
 
 </layer-list>

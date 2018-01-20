@@ -37,12 +37,15 @@ public class PageViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Page page) {
         this.page = page;
+        int identif = itemView.getContext().getApplicationContext().getResources().getIdentifier(page.getImgTitle(),"drawable", itemView.getContext().getPackageName());
+        if(identif == 0){identif =2130837589;}
         Picasso.with(itemView.getContext())
-                .load(page.getImgTitle())
+                .load(identif)
                 .fit()
-                .placeholder(R.drawable.ic_bookmark_black_24dp)
+               // .placeholder(R.drawable.ic_bookmark_black_24dp)
                 .into(imageView);
         //imageView.setImageBitmap(page.getImgTitle());
+        System.out.println(page.getNumberPage());
         number.setText(String.valueOf(page.getNumberPage()));
     }
 }

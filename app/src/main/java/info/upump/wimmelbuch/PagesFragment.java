@@ -28,6 +28,7 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final String TITLE_BOOK = "title book";
     private static final String RATE_BOOK = "rate book";
     private static final String IMG_TITLE_BOOK = "img title book";
+    private static final int NUMBER_OF_SPAN = 2;
 
     private Book book;
     private List<Page> pageList = new ArrayList<>();
@@ -69,16 +70,15 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
                              Bundle savedInstanceState) {
         System.out.println("onCreateViewa");
         // Inflate the layout for this fragment
-        getActivity().setTitle(book.getTitle());
+        getActivity().setTitle(book.getTitle().substring(0,1).toUpperCase()+book.getTitle().substring(1));
         View inflate = inflater.inflate(R.layout.fragment_pages, container, false);
-      /*  DisplayMetrics displaymetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int screenWidth = displaymetrics.widthPixels;
-        System.out.println(screenWidth);
-        int q = Math.round(screenWidth/150);*/
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-       // LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_SPAN);
+        // LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
+
+        System.out.println("fragment  " + pageList.toString());
+
         pageAdapter = new PageAdapter(pageList);
+
 
         recyclerView = inflate.findViewById(R.id.fragment_pages_recycle);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -114,6 +114,6 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        getLoaderManager().initLoader(0,null,this);
+        getLoaderManager().initLoader(0, null, this);
     }
 }

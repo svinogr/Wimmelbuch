@@ -6,6 +6,9 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.upump.wimmelbuch.data.IData;
+import info.upump.wimmelbuch.data.db.DataBasePageDao;
+import info.upump.wimmelbuch.model.Book;
 import info.upump.wimmelbuch.model.Page;
 
 /**
@@ -14,26 +17,19 @@ import info.upump.wimmelbuch.model.Page;
 
 public class PageLoader extends AsyncTaskLoader<List<Page>> {
     private Context context;
-    private long idBook;
+    private Book book;
 
     public PageLoader(Context context, long idBook) {
         super(context);
         this.context = context;
-        this.idBook = idBook;
+        this.book = new Book();
+        book.setId(idBook);
     }
 
     @Override
     public List<Page> loadInBackground() {
-        List<Page> list = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            Page page = new Page();
-            page.setId(i);
-            page.setNumberPage(i);
-            page.setImgTitle("http://img.wimmelbuch.su/2367-home_default/wohin-saust-die-kleine-weihnachtsmaus.jpg");
-            page.setImgPage("http://img.wimmelbuch.su/144-thickbox_default/mein-superdickes-wimmelbuch.jpg");
-            list.add(page);
-        }
-        return list;
+        IData iData = new DataBasePageDao(context);
+        return iData.getListById(book);
     }
 
     @Override
