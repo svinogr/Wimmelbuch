@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import info.upump.wimmelbuch.BooksFragment;
 import info.upump.wimmelbuch.Controller;
 import info.upump.wimmelbuch.PagesFragment;
 import info.upump.wimmelbuch.R;
@@ -31,9 +32,12 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller controller = (Controller) itemView.getContext();
+               /* Controller controller = (Controller) itemView.getContext();
                 PagesFragment pagesFragment = PagesFragment.newInstance(book);
-                controller.createFragment(pagesFragment);
+                controller.createFragment(pagesFragment);*/
+                BooksFragment.CallBacks callBacks  = (BooksFragment.CallBacks) itemView.getContext();
+                callBacks.onBookSelected(book);
+
             }
         });
     }
@@ -51,7 +55,6 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
                 .load(identifier)
                 .error(R.drawable.ic_bookmark_black_24dp)
                 .fit()
-
             //    .placeholder(R.drawable.ic_bookmark_black_24dp)
                 .into(imgTitle);
 

@@ -24,6 +24,12 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     private List<Book> bookList = new ArrayList<>();
     private BookAdapter bookAdapter;
 
+    private CallBacks iCallBacks;
+
+    public interface CallBacks{
+        void onBookSelected(Book book);
+    }
+
 
     public BooksFragment() {
     }
@@ -65,6 +71,7 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
         bookList.clear();
         bookList.addAll(data);
+        bookList.addAll(data);
         bookAdapter.notifyDataSetChanged();
     }
 
@@ -77,5 +84,12 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onAttach(Context context) {
         super.onAttach(context);
         getLoaderManager().initLoader(0, null, this);
+        iCallBacks = (CallBacks) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        iCallBacks = null;
     }
 }

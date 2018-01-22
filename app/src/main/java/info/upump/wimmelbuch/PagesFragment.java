@@ -36,6 +36,7 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     private PageAdapter pageAdapter;
 
 
+
     public PagesFragment() {
         // Required empty public constructor
     }
@@ -115,5 +116,7 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onAttach(Context context) {
         super.onAttach(context);
         getLoaderManager().initLoader(0, null, this);
-    }
+         }
+
+
 }
