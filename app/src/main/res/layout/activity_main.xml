@@ -23,19 +23,5 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <com.google.android.gms.ads.AdView
-
-
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
-    </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

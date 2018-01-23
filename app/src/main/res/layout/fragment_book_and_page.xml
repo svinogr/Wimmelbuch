@@ -16,36 +16,12 @@
         android:name="info.upump.wimmelbuch.BooksFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        ads:layout_constraintHorizontal_bias="0.0"
-        ads:layout_constraintVertical_bias="1.0"
+        ads:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </fragment>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="5dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <FrameLayout
-        android:id="@+id/page_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

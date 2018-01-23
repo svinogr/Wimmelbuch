@@ -35,6 +35,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
                /* Controller controller = (Controller) itemView.getContext();
                 PagesFragment pagesFragment = PagesFragment.newInstance(book);
                 controller.createFragment(pagesFragment);*/
+                System.out.println("work holder book");
                 BooksFragment.CallBacks callBacks  = (BooksFragment.CallBacks) itemView.getContext();
                 callBacks.onBookSelected(book);
 

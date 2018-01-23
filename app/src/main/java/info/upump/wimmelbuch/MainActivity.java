@@ -21,17 +21,18 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import info.upump.wimmelbuch.model.Book;
+import info.upump.wimmelbuch.model.BookAndPage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Controller, BooksFragment.CallBacks {
 
-    private static final Uri URL_SHOP =Uri.parse("http://wimmelbuch.su/") ;
+    private static final Uri URL_SHOP = Uri.parse("http://wimmelbuch.su/");
     private AdView adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutResourceId());
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -43,17 +44,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null) {
-            BooksFragment booksFragment = BooksFragment.newInstance();
+            BookAndPage booksFragment = new BookAndPage();
             createFragment(booksFragment);
-
         }
 
     }
 
-    @LayoutRes
-    private int getLayoutResourceId() {
-        return R.layout.activity_masterdetail;
-    }
 
     @Override
     public void onBackPressed() {
@@ -95,7 +91,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_general) {
             // Handle the camera action
-            BooksFragment booksFragment = new BooksFragment();
+           // BooksFragment booksFragment = new BooksFragment();
+            BookAndPage booksFragment = new BookAndPage();
             createFragment(booksFragment);
         } else if (id == R.id.nav_to_shop) {
             Intent intent = new Intent(Intent.ACTION_VIEW, URL_SHOP);
@@ -110,7 +107,7 @@ public class MainActivity extends AppCompatActivity
             Intent email = new Intent(Intent.ACTION_SEND);
             email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_to)});
-            email.putExtra(Intent.EXTRA_SUBJECT,"Wimmelbuch");
+            email.putExtra(Intent.EXTRA_SUBJECT, "Wimmelbuch");
             email.putExtra(Intent.EXTRA_TEXT, "");
             //email.setType("message/rfc822");
             email.setType("plain/text");
@@ -124,24 +121,27 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void createFragment(Fragment fragment) {
+        System.out.println(fragment);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (fragment instanceof PagesFragment) {
+            if ((findViewById(R.id.page_container) != null)) {
+                System.out.println("have page container");
+                fragmentTransaction.replace(R.id.page_container, fragment);
+            } else fragmentTransaction.replace(R.id.main_activity_container, fragment);
+        } else fragmentTransaction.replace(R.id.main_activity_container, fragment);
 
-        System.out.println(findViewById(R.id.content_main_two_pane_root));
-        System.out.println(findViewById(R.id.main_activity_container));
-        System.out.println(findViewById(R.id.main_activity_container_page));
-
-        if(fragment instanceof ViewPageFragment){
+      /*  if(fragment instanceof ViewPageFragment){
             if(findViewById(R.id.main_activity_container_page) != null) {// if have
                 fragmentTransaction.replace(R.id.content_main_two_pane_root, fragment);
             }else {
                 ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.content_main_two_pane_root);
                 layout.removeAllViews();
                 fragmentTransaction.replace(R.id.main_activity_container, fragment);}
-        }else fragmentTransaction.replace(R.id.main_activity_container, fragment);
+        }else fragmentTransaction.replace(R.id.main_activity_container, fragment);*/
 
 
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        if (!(fragment instanceof BooksFragment)) {
+        if (!(fragment instanceof BookAndPage)) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commit();
@@ -149,14 +149,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBookSelected(Book book) {
-        if(findViewById(R.id.main_activity_container_page) == null){
+        System.out.println("onBookSelected");
+
+        if (findViewById(R.id.page_container) != null) {
             PagesFragment fragment = PagesFragment.newInstance(book);
             createFragment(fragment);
 
-        }else {
+        } else {
             PagesFragment fragment = PagesFragment.newInstance(book);
+
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_activity_container_page, fragment);
+            fragmentTransaction.replace(R.id.main_activity_container, fragment);
             fragmentTransaction.commit();
         }
 
