@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/contaent_main_two_pane_root"
+    android:id="@+id/content_main_two_pane_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBG2"
@@ -10,14 +11,14 @@
     tools:context="info.upump.wimmelbuch.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
+
+
     <FrameLayout
         android:id="@+id/main_activity_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        ads:layout_constraintHorizontal_bias="0.0"
+        ads:layout_constraintVertical_bias="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,5 +47,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
+
 
 </android.support.constraint.ConstraintLayout>

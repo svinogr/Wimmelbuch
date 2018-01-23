@@ -54,7 +54,6 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        System.out.println("onCreate");
         super.onCreate(savedInstanceState);
         book = new Book();
         if (getArguments() != null) {
@@ -69,17 +68,12 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("onCreateViewa");
         // Inflate the layout for this fragment
         getActivity().setTitle(book.getTitle().substring(0,1).toUpperCase()+book.getTitle().substring(1));
         View inflate = inflater.inflate(R.layout.fragment_pages, container, false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_SPAN);
-        // LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
-
-        System.out.println("fragment  " + pageList.toString());
 
         pageAdapter = new PageAdapter(pageList);
-
 
         recyclerView = inflate.findViewById(R.id.fragment_pages_recycle);
         recyclerView.setLayoutManager(gridLayoutManager);

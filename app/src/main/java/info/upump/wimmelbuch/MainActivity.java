@@ -1,7 +1,10 @@
 package info.upump.wimmelbuch;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,12 +15,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import info.upump.wimmelbuch.model.Book;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Controller, BooksFragment.CallBacks {
 
+    private static final Uri URL_SHOP =Uri.parse("http://wimmelbuch.su/") ;
+    private AdView adView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +95,26 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_general) {
             // Handle the camera action
+            BooksFragment booksFragment = new BooksFragment();
+            createFragment(booksFragment);
         } else if (id == R.id.nav_to_shop) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, URL_SHOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
         } else if (id == R.id.nav_about) {
-        } else if (id == R.id.nav_mailto) {
+            AboutFragment aboutFragment = new AboutFragment();
+            createFragment(aboutFragment);
 
+        } else if (id == R.id.nav_mailto) {
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_to)});
+            email.putExtra(Intent.EXTRA_SUBJECT,"Wimmelbuch");
+            email.putExtra(Intent.EXTRA_TEXT, "");
+            //email.setType("message/rfc822");
+            email.setType("plain/text");
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -101,11 +125,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void createFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        System.out.println(findViewById(R.id.content_main_two_pane_root));
+        System.out.println(findViewById(R.id.main_activity_container));
+        System.out.println(findViewById(R.id.main_activity_container_page));
+
         if(fragment instanceof ViewPageFragment){
-            if(findViewById(R.id.main_activity_container_page) != null) {
-                fragmentTransaction.replace(R.id.contaent_main_two_pane_root, fragment);
-            }else fragmentTransaction.replace(R.id.main_activity_container, fragment);
+            if(findViewById(R.id.main_activity_container_page) != null) {// if have
+                fragmentTransaction.replace(R.id.content_main_two_pane_root, fragment);
+            }else {
+                ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.content_main_two_pane_root);
+                layout.removeAllViews();
+                fragmentTransaction.replace(R.id.main_activity_container, fragment);}
         }else fragmentTransaction.replace(R.id.main_activity_container, fragment);
+
+
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         if (!(fragment instanceof BooksFragment)) {
             fragmentTransaction.addToBackStack(null);

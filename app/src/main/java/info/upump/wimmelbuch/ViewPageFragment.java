@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import java.net.URL;
@@ -31,6 +33,7 @@ public class ViewPageFragment extends Fragment{
 
     private Page page;
     private ImageView imageViewPage;
+    private AdView adView;
 
 
     public ViewPageFragment() {
@@ -71,12 +74,19 @@ public class ViewPageFragment extends Fragment{
         getActivity().setTitle("Страница "+page.getNumberPage());
         imageViewPage = inflate.findViewById(R.id.view_page_fragment_image_view);
        // int identif = getContext().getApplicationContext().getResources().getIdentifier(page.getImgTitle(),"drawable", getContext().getPackageName());
+        adView = (AdView) inflate.findViewById(R.id.adView);
 
         Picasso.with(getContext())
                 .load(Uri.parse(getURL()))
           //      .placeholder(identif)
                 .fit()
                 .into(imageViewPage);
+
+
+        AdRequest adRequest = new AdRequest.Builder().
+                addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
         return inflate;
     }
 

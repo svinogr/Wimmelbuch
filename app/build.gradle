@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "info.upump.wimmelbuch"
         minSdkVersion 15
@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-ads:11.0.4'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -36,9 +37,13 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     // Retrofit XML converter (Simple)
 
-    compile ('com.squareup.retrofit2:converter-simplexml:2.3.0'){
+    compile('com.squareup.retrofit2:converter-simplexml:2.3.0') {
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'
-        exclude group: 'stax', module: 'stax'}
+        exclude group: 'stax', module: 'stax'
+    }
 
 }
+
+
+apply plugin: 'com.google.gms.google-services'
