@@ -130,16 +130,6 @@ public class MainActivity extends AppCompatActivity
             } else fragmentTransaction.replace(R.id.main_activity_container, fragment);
         } else fragmentTransaction.replace(R.id.main_activity_container, fragment);
 
-      /*  if(fragment instanceof ViewPageFragment){
-            if(findViewById(R.id.main_activity_container_page) != null) {// if have
-                fragmentTransaction.replace(R.id.content_main_two_pane_root, fragment);
-            }else {
-                ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.content_main_two_pane_root);
-                layout.removeAllViews();
-                fragmentTransaction.replace(R.id.main_activity_container, fragment);}
-        }else fragmentTransaction.replace(R.id.main_activity_container, fragment);*/
-
-
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         if (!(fragment instanceof BookAndPage)) {
             fragmentTransaction.addToBackStack(null);
