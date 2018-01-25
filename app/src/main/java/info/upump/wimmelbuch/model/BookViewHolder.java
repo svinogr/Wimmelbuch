@@ -1,5 +1,6 @@
 package info.upump.wimmelbuch.model;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,34 +33,25 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Controller controller = (Controller) itemView.getContext();
-                PagesFragment pagesFragment = PagesFragment.newInstance(book);
-                controller.createFragment(pagesFragment);*/
-                System.out.println("work holder book");
                 BooksFragment.CallBacks callBacks  = (BooksFragment.CallBacks) itemView.getContext();
+                callBacks.setSelectedBook(book);
                 callBacks.onBookSelected(book);
-
             }
         });
     }
 
     public void binder(Book book) {
         this.book = book;
-        title.setText(book.getTitle().substring(0,1).toUpperCase()+book.getTitle().substring(1));
-        System.out.println(book.getImgTitle());
-        System.out.println(itemView.getContext().getApplicationContext().getPackageName());
-        System.out.println("con "+itemView.getContext().getApplicationContext().getResources().getIdentifier("book_142","drawable",itemView.getContext().getApplicationContext().getPackageName()));
+      title.setText(book.getTitle().substring(0,1).toUpperCase()+book.getTitle().substring(1));
         int identifier = itemView.getContext().getApplicationContext().getResources().getIdentifier(book.getImgTitle(), "drawable",itemView.getContext().getApplicationContext().getPackageName());
-        System.out.println("ident "+ identifier);
         if(identifier == 0){identifier = 2130837589;}
         Picasso.with(itemView.getContext())
                 .load(identifier)
-                .error(R.drawable.ic_bookmark_black_24dp)
+                .placeholder(R.mipmap.ic_load)
+                .error(R.mipmap.ic_noload)
                 .fit()
-            //    .placeholder(R.drawable.ic_bookmark_black_24dp)
                 .into(imgTitle);
 
-       // imgTitle.setImageBitmap(new );
         rate.setText(String.valueOf(book.getRate()));
     }
 }

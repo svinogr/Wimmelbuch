@@ -23,12 +23,12 @@ import java.net.URL;
 
 import info.upump.wimmelbuch.model.Page;
 
-public class ViewPageFragment extends Fragment{
-    public static final  String ID_PAGE = "id page";
-    public static final  String ID_BOOK = "id book";
-    public static final  String NUMBER_PAGE = "number page";
-    public static final  String IMG_TITLE_PAGE = "img title";
-    public static final  String IMG_PAGE = "img page";
+public class ViewPageFragment extends Fragment {
+    public static final String ID_PAGE = "id page";
+    public static final String ID_BOOK = "id book";
+    public static final String NUMBER_PAGE = "number page";
+    public static final String IMG_TITLE_PAGE = "img title";
+    public static final String IMG_PAGE = "img page";
     private static final String START_URL = "https://img.wimmelbuch.su/img/p/";
 
     private Page page;
@@ -71,18 +71,18 @@ public class ViewPageFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View inflate = inflater.inflate(R.layout.fragment_view_page, container, false);
-        getActivity().setTitle("Страница "+page.getNumberPage());
+        getActivity().setTitle("Страница " + page.getNumberPage());
         imageViewPage = inflate.findViewById(R.id.view_page_fragment_image_view);
-       // int identif = getContext().getApplicationContext().getResources().getIdentifier(page.getImgTitle(),"drawable", getContext().getPackageName());
         adView = (AdView) inflate.findViewById(R.id.adView);
 
         Picasso.with(getContext())
                 .load(Uri.parse(getURL()))
-          //      .placeholder(identif)
+                .placeholder(R.mipmap.ic_load)
                 .fit()
+                .error(R.mipmap.ic_noload)
                 .into(imageViewPage);
 
-
+// реклама
         AdRequest adRequest = new AdRequest.Builder().
                 addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
@@ -90,17 +90,14 @@ public class ViewPageFragment extends Fragment{
         return inflate;
     }
 
-    private String getURL(){
+    private String getURL() {
         String split[] = page.getImgPage().split("-");
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i = 0; i<split[0].length();i++){
-            stringBuilder.append(split[0].substring(i,i+1));
+        for (int i = 0; i < split[0].length(); i++) {
+            stringBuilder.append(split[0].substring(i, i + 1));
             stringBuilder.append("/");
         }
-        String pageURL =START_URL+stringBuilder.toString()+page.getImgPage();
-        return pageURL;
+        return START_URL + stringBuilder.toString() + page.getImgPage();
     }
-
-
 
 }

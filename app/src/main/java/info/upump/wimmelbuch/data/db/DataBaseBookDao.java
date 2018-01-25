@@ -1,6 +1,5 @@
 package info.upump.wimmelbuch.data.db;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -38,11 +37,9 @@ public class DataBaseBookDao extends DataBaseDao implements IData<Book> {
                 book.setTitle(cursor.getString(1));
                 book.setRate(cursor.getInt(2));
                 book.setImgTitle(cursor.getString(3));
-                System.out.println(book);
                 bookList.add(book);
             } while (cursor.moveToNext());
         }
-
 
         return bookList;
     }

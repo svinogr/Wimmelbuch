@@ -22,7 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public final static String DATABASE_NAME = "book.db";
     public final static String TABLE_BOOK = "book";
     public final static String TABLE_PAGE = "page";
-    public final static int DATA_BASE_VERSION = 3;
+    public final static int DATA_BASE_VERSION = 6;
 
     public static final String TABLE_KEY_ID = "_id";
     public static final String TABLE_KEY_BOOK_ID = "book_id";
@@ -80,20 +80,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             File file = new File(DB_PATH);
             if (!file.exists()) {
                 //получаем локальную бд как поток в папке assets
-                System.out.println("сменить базу");
                 this.getReadableDatabase();
-
                 myInput = context.getAssets().open(DATABASE_NAME);
-
                 // Путь к новой бд
                 String outFileName = DB_PATH;
                 // Открываем пустую бд
                 myOutput = new FileOutputStream(outFileName);
-
                 // побайтово копируем данные
                 byte[] buffer = new byte[1024];
                 int length;
-
                 while ((length = myInput.read(buffer)) > 0) {
                     myOutput.write(buffer, 0, length);
                 }
@@ -113,7 +108,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
     private void deleteBD(){
-        System.out.println("удалем старую");
         File file = new File(DB_PATH);
         if(file.exists()){
             file.delete();
@@ -136,7 +130,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             sqLiteDatabase = SQLiteDatabase.openDatabase(DB_PATH,null,  SQLiteDatabase.OPEN_READONLY);
             int version = sqLiteDatabase.getVersion();
-            System.out.println("версия базы "+version);
             sqLiteDatabase.close();
             if(version < DATA_BASE_VERSION){
                 deleteBD();

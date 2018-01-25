@@ -42,10 +42,9 @@ public class PageViewHolder extends RecyclerView.ViewHolder {
         Picasso.with(itemView.getContext())
                 .load(identif)
                 .fit()
-               // .placeholder(R.drawable.ic_bookmark_black_24dp)
+                .placeholder(R.mipmap.ic_load)
+                .error(R.mipmap.ic_noload)
                 .into(imageView);
-        //imageView.setImageBitmap(page.getImgTitle());
-        System.out.println(page.getNumberPage());
         number.setText(String.valueOf(page.getNumberPage()));
     }
 }

@@ -36,7 +36,6 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     private PageAdapter pageAdapter;
 
 
-
     public PagesFragment() {
         // Required empty public constructor
     }
@@ -69,10 +68,10 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle(book.getTitle().substring(0,1).toUpperCase()+book.getTitle().substring(1));
+        getActivity().setTitle(book.getTitle().substring(0, 1).toUpperCase() + book.getTitle().substring(1));
         View inflate = inflater.inflate(R.layout.fragment_pages, container, false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_SPAN);
-
+        System.out.println(" onCreateView P");
         pageAdapter = new PageAdapter(pageList);
 
         recyclerView = inflate.findViewById(R.id.fragment_pages_recycle);
@@ -110,7 +109,6 @@ public class PagesFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onAttach(Context context) {
         super.onAttach(context);
         getLoaderManager().initLoader(0, null, this);
-         }
-
+    }
 
 }

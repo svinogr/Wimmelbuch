@@ -31,6 +31,7 @@
             tool:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:inputType="textCapWords"
             android:id="@+id/book_item_card_item_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

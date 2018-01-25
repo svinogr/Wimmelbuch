@@ -46,7 +46,6 @@ public class DataBasePageDao extends DataBaseDao implements IData<Page> {
                 page.setImgTitle(cursor.getString(3));
                 page.setImgPage(cursor.getString(4));
                 pageList.add(page);
-                System.out.println(page);
             } while (cursor.moveToNext());
         }
         return pageList;

@@ -2,6 +2,7 @@ package info.upump.wimmelbuch;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -24,12 +25,13 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     private List<Book> bookList = new ArrayList<>();
     private BookAdapter bookAdapter;
 
-    private CallBacks iCallBacks;
 
-    public interface CallBacks{
+
+    public interface CallBacks extends Controller{
         void onBookSelected(Book book);
+        void setSelectedBook(Book book);
+        Book getSelectedBook();
     }
-
 
     public BooksFragment() {
     }
@@ -42,21 +44,23 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Книги");
+        getActivity().setTitle(getString(R.string.title_books));
         View inflate = inflater.inflate(R.layout.fragment_books, container, false);
         recyclerView = inflate.findViewById(R.id.fragment_books_recycler);
 
         bookAdapter = new BookAdapter(bookList);
-
+        System.out.println(" onCreateView B");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(bookAdapter);
+
         return inflate;
     }
 
@@ -71,7 +75,6 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
         bookList.clear();
         bookList.addAll(data);
-        bookList.addAll(data);
         bookAdapter.notifyDataSetChanged();
     }
 
@@ -84,12 +87,13 @@ public class BooksFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onAttach(Context context) {
         super.onAttach(context);
         getLoaderManager().initLoader(0, null, this);
-        iCallBacks = (CallBacks) context;
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        iCallBacks = null;
+
     }
+
 }

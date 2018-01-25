@@ -3,8 +3,6 @@ package info.upump.wimmelbuch;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,19 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import info.upump.wimmelbuch.model.Book;
-import info.upump.wimmelbuch.model.BookAndPage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Controller, BooksFragment.CallBacks {
 
     private static final Uri URL_SHOP = Uri.parse("http://wimmelbuch.su/");
-    private AdView adView;
+    private Book selectedBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null) {
-            BookAndPage booksFragment = new BookAndPage();
+            BookAndPage booksFragment = BookAndPage.newInstance();
             createFragment(booksFragment);
         }
 
@@ -76,9 +69,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+     /*   if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -91,8 +84,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_general) {
             // Handle the camera action
-           // BooksFragment booksFragment = new BooksFragment();
-            BookAndPage booksFragment = new BookAndPage();
+            // BooksFragment booksFragment = new BooksFragment();
+            BookAndPage booksFragment = BookAndPage.newInstance();
             createFragment(booksFragment);
         } else if (id == R.id.nav_to_shop) {
             Intent intent = new Intent(Intent.ACTION_VIEW, URL_SHOP);
@@ -109,7 +102,6 @@ public class MainActivity extends AppCompatActivity
             email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_to)});
             email.putExtra(Intent.EXTRA_SUBJECT, "Wimmelbuch");
             email.putExtra(Intent.EXTRA_TEXT, "");
-            //email.setType("message/rfc822");
             email.setType("plain/text");
             startActivity(Intent.createChooser(email, "Choose an Email client :"));
         }
@@ -121,14 +113,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void createFragment(Fragment fragment) {
-        System.out.println(fragment);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        System.out.println(findViewById(R.id.page_container) == null);
         if (fragment instanceof PagesFragment) {
-            if ((findViewById(R.id.page_container) != null)) {
-                System.out.println("have page container");
+            if ((findViewById(R.id.page_container) != null)) {//если есть
                 fragmentTransaction.replace(R.id.page_container, fragment);
-            } else fragmentTransaction.replace(R.id.main_activity_container, fragment);
-        } else fragmentTransaction.replace(R.id.main_activity_container, fragment);
+
+            } else {fragmentTransaction.replace(R.id.main_activity_container, fragment);
+                selectedBook = null;}
+        } else
+            fragmentTransaction.replace(R.id.main_activity_container, fragment);
+
 
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         if (!(fragment instanceof BookAndPage)) {
@@ -139,19 +134,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBookSelected(Book book) {
-        System.out.println("onBookSelected");
+        PagesFragment fragment = PagesFragment.newInstance(book);
+        createFragment(fragment);
+    }
 
-        if (findViewById(R.id.page_container) != null) {
-            PagesFragment fragment = PagesFragment.newInstance(book);
-            createFragment(fragment);
+    @Override
+    public void setSelectedBook(Book book) {
+        selectedBook = book;
+    }
 
-        } else {
-            PagesFragment fragment = PagesFragment.newInstance(book);
-
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_activity_container, fragment);
-            fragmentTransaction.commit();
-        }
-
+    @Override
+    public Book getSelectedBook() {
+        return selectedBook;
     }
 }
