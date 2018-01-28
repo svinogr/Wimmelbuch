@@ -30,7 +30,6 @@ public class BookAndPage extends Fragment {
     public void onResume() {
         super.onResume();
         if(callBacks.getSelectedBook()!=null){
-            System.out.println(callBacks.getSelectedBook());
             callBacks.onBookSelected(callBacks.getSelectedBook());
         }
     }
@@ -39,8 +38,6 @@ public class BookAndPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println(" onCreateView BP");
-
         return inflater.inflate(getLayoutResourceId(), container, false);
     }
 

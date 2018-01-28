@@ -1,16 +1,11 @@
 package info.upump.wimmelbuch;
 
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,8 +13,6 @@ import android.widget.ImageView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
 
 import info.upump.wimmelbuch.model.Page;
 
@@ -71,7 +64,7 @@ public class ViewPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View inflate = inflater.inflate(R.layout.fragment_view_page, container, false);
-        getActivity().setTitle("Страница " + page.getNumberPage());
+       // getActivity().setTitle("Страница " + page.getNumberPage());
         imageViewPage = inflate.findViewById(R.id.view_page_fragment_image_view);
         adView = (AdView) inflate.findViewById(R.id.adView);
 
@@ -83,9 +76,7 @@ public class ViewPageFragment extends Fragment {
                 .into(imageViewPage);
 
 // реклама
-        AdRequest adRequest = new AdRequest.Builder().
-                addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
         return inflate;
     }

@@ -14,12 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import info.upump.wimmelbuch.model.Book;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Controller, BooksFragment.CallBacks {
 
-    private static final Uri URL_SHOP = Uri.parse("http://wimmelbuch.su/");
+    private static final Uri URL_SHOP = Uri.parse("http://wimmelbuch.su/?from=app");
     private Book selectedBook;
 
     @Override
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        System.out.println(backStackEntryCount);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
