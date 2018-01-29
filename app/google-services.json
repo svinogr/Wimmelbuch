@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "28670109729",
+    "firebase_url": "https://wimmelbuch-f430f.firebaseio.com",
+    "project_id": "wimmelbuch-f430f",
+    "storage_bucket": "wimmelbuch-f430f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28670109729:android:7581da499896091d",
+        "android_client_info": {
+          "package_name": "info.upump.wimmelbuch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28670109729-597kmiblojc2e669fijqjihgoefh6mmm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "info.upump.wimmelbuch",
+            "certificate_hash": "bc9ce795cb088a273ccb0f76d003ba3e75955195"
+          }
+        },
+        {
+          "client_id": "28670109729-0kc535t3fpecdbu7jcu9lkbdmats1uue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUQMQ8Iig-Gn-CnDK63KuTm6ApA-7jrPU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28670109729-0kc535t3fpecdbu7jcu9lkbdmats1uue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
