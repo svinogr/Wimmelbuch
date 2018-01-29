@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import info.upump.wimmelbuch.model.Book;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity
             BookAndPage booksFragment = BookAndPage.newInstance();
             createFragment(booksFragment);
         }
+        MobileAds.initialize(this,"ca-app-pub-7715449191385617~6787037302");
+
 
     }
 
